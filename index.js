@@ -1,7 +1,6 @@
 module.exports = (api, options = {}) => {
 
-  console.info("OPTIONS", options)
-  const isModernBuild = process.env.VARIE_MODERN_BUILD;
+  const isModernBuild = options.modern || false;
 
   let targets = undefined;
   if (isModernBuild) {
@@ -20,7 +19,7 @@ module.exports = (api, options = {}) => {
           debug: false,
           modules: false,
           // useBuiltIns: "usage", // TODO
-          // ignoreBrowserslistConfig: isModernBuild
+          ignoreBrowserslistConfig: isModernBuild
         }
       ]
     ],
