@@ -2,24 +2,27 @@
 
 // add polyfill imports to the first file encountered.
 module.exports = ({ types }) => {
-  let entryFile
+  let entryFile;
   return {
-    name: 'inject-polyfills',
+    name: "inject-polyfills",
     visitor: {
-      Program (path, state) {
+      Program(path, state) {
         if (!entryFile) {
-          entryFile = state.filename
+          entryFile = state.filename;
         } else if (state.filename !== entryFile) {
-          return
+          return;
         }
 
-        const { polyfills } = state.opts
-        const { createImport } = require('@babel/preset-env/lib/utils')
+        const { polyfills } = state.opts;
+        const { createImport } = require("@babel/preset-env/lib/utils");
         // imports are injected in reverse order
-        polyfills.slice().reverse().forEach(p => {
-          createImport(path, p)
-        })
+        polyfills
+          .slice()
+          .reverse()
+          .forEach(p => {
+            createImport(path, p);
+          });
       }
     }
-  }
-}
+  };
+};

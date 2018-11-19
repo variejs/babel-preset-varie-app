@@ -1,20 +1,21 @@
 // https://raw.githubusercontent.com/vuejs/vue-cli/dev/packages/%40vue/babel-preset-app/index.js
 
-function generatePolyFills(targets, defaultPolyFills = [
-  'es6.promise',
-  'es6.array.iterator',
-  'es7.promise.finally'
-], ignoreBrowserslistConfig) {
-  const { isPluginRequired } = require('@babel/preset-env')
-  const builtInsList = require('@babel/preset-env/data/built-ins.json')
-  const getTargets = require('@babel/preset-env/lib/targets-parser').default
-  const builtInTargets = getTargets(targets, {
-    ignoreBrowserslistConfig,
-  })
+function generatePolyFills(
+  targets,
+  defaultPolyFills = [
+    "es6.promise",
+    "es6.array.iterator",
+    "es7.promise.finally"
+  ]
+) {
+  const { isPluginRequired } = require("@babel/preset-env");
+  const builtInsList = require("@babel/preset-env/data/built-ins.json");
+  const getTargets = require("@babel/preset-env/lib/targets-parser").default;
+  const builtInTargets = getTargets(targets);
 
   return defaultPolyFills.filter(item => {
-    return isPluginRequired(builtInTargets, builtInsList[item])
-  })
+    return isPluginRequired(builtInTargets, builtInsList[item]);
+  });
 }
 
 module.exports = (
@@ -28,16 +29,18 @@ module.exports = (
   let presets = [];
   let plugins = [];
   let targets = undefined;
+
   if (isModernBuild) {
     targets = {
       esmodules: true
     };
   }
 
-  let polyfills = generatePolyFills(targets, options.polyfills, isModernBuild);
-
-  console.info(polyfills)
-  plugins.push([require('./polyfillsPlugin'), { polyfills }])
+  let polyfills = [];
+  if (!isModernBuild) {
+    polyfills = generatePolyFills(targets, options.polyfills);
+    plugins.push([require("./polyfillsPlugin"), { polyfills }]);
+  }
 
   if (options.jsx) {
     plugins.push(
