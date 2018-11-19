@@ -3,7 +3,6 @@
   "version": "0.0.3",
   "description": "Babel presets for a Varie application",
   "main": "index.js",
-  "scripts": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/variejs/babel-preset-varie-app.git"
