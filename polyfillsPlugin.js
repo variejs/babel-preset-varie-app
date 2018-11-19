@@ -19,8 +19,8 @@ module.exports = ({ types }) => {
         polyfills
           .slice()
           .reverse()
-          .forEach(p => {
-            createImport(path, p);
+          .forEach(polyfill => {
+            createImport(path, polyfill);
           });
       }
     }
