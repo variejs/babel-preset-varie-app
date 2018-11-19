@@ -1,7 +1,29 @@
 export default function (context, options = {}) {
 
-  console.info(context);
-  console.info(options);
+  console.info("\n", "GOT HERE");
+  console.info("\n", "GOT HERE");
+  console.info("\n", "GOT HERE");
+  console.info("\n", "GOT HERE");
+  console.info("\n", "GOT HERE");
+  console.info("\n", "GOT HERE");
+  console.info("\n", "GOT HERE");
+  console.info("\n", "GOT HERE");
+  console.info("\n", "GOT HERE");
+  console.info("\n", "GOT HERE");
+  console.info("\n", "GOT HERE");
+  console.info("\n", "GOT HERE");
+  console.info("\n", "GOT HERE");
+  console.info("\n", "GOT HERE");
+  console.info("\n", "GOT HERE");
+  console.info("\n", "GOT HERE");
+  console.info("\n", "GOT HERE");
+  console.info("\n", "GOT HERE");
+  console.info("\n", "GOT HERE");
+  console.info("\n", "GOT HERE");
+  console.info("\n", "GOT HERE");
+  console.info("\n", "GOT HERE");
+
+  // console.info(options);
 
   let targets = undefined;
   // if (options.isModernBuild) {
