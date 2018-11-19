@@ -1,6 +1,6 @@
 {
-  "name": "varie/babel-preset-app",
-  "version": "0.0.1",
+  "name": "babel-preset-varie-app",
+  "version": "0.0.2",
   "description": "Babel presets for a Varie application",
   "main": "index.js",
   "scripts": {
