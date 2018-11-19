@@ -59,12 +59,6 @@ module.exports = (
       useESModules: true
     }
   ]);
-  plugins.push([
-    "@babel/plugin-proposal-object-rest-spread",
-    {
-      useBuiltIns: "usage"
-    }
-  ]);
 
   presets.push([
     "@babel/preset-env",
