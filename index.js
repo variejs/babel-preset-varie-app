@@ -1,38 +1,14 @@
-export default function (context, options = {}) {
+module.exports = (api, options = {}) => {
 
-  console.info("\n", "GOT HERE");
-  console.info("\n", "GOT HERE");
-  console.info("\n", "GOT HERE");
-  console.info("\n", "GOT HERE");
-  console.info("\n", "GOT HERE");
-  console.info("\n", "GOT HERE");
-  console.info("\n", "GOT HERE");
-  console.info("\n", "GOT HERE");
-  console.info("\n", "GOT HERE");
-  console.info("\n", "GOT HERE");
-  console.info("\n", "GOT HERE");
-  console.info("\n", "GOT HERE");
-  console.info("\n", "GOT HERE");
-  console.info("\n", "GOT HERE");
-  console.info("\n", "GOT HERE");
-  console.info("\n", "GOT HERE");
-  console.info("\n", "GOT HERE");
-  console.info("\n", "GOT HERE");
-  console.info("\n", "GOT HERE");
-  console.info("\n", "GOT HERE");
-  console.info("\n", "GOT HERE");
-  console.info("\n", "GOT HERE");
-
-  // console.info(options);
+  console.info("OPTIONS", options)
+  const isModernBuild = process.env.VARIE_MODERN_BUILD;
 
   let targets = undefined;
-  // if (options.isModernBuild) {
-  //   targets = {
-  //     esmodules: true
-  //   };
-  // }
-
-  // TODO - how do we pass in the modern build ?
+  if (isModernBuild) {
+    targets = {
+      esmodules: true
+    };
+  }
 
   return {
     presets: [
@@ -44,7 +20,7 @@ export default function (context, options = {}) {
           debug: false,
           modules: false,
           // useBuiltIns: "usage", // TODO
-          // ignoreBrowserslistConfig: options.isModernBuild
+          // ignoreBrowserslistConfig: isModernBuild
         }
       ]
     ],
@@ -53,10 +29,10 @@ export default function (context, options = {}) {
       [
         "@babel/plugin-transform-runtime",
         {
-          regenerator: false,
           corejs: false,
           helpers: true,
-          useESModules: true
+          regenerator: false,
+          useESModules: true,
         }
       ],
       [
