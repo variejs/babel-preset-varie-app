@@ -14,13 +14,10 @@ This package configures babel for varie applicaitons. Which can be customized to
   - es6.promise
   - es6.array.iterator
   - es7.promise.finally
-
-### Babel Transform Runtime
-
-### Vue JSX
-
-- @babel/plugin-syntax-jsx
-- babel-plugin-transform-vue-jsx
+- Babel Transform Runtime
+  - @babel/plugin-syntax-jsx
+- Vue JSX
+  - babel-plugin-transform-vue-jsx
 
 ## Official Documentation
 
