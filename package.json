@@ -1,6 +1,6 @@
 {
   "name": "babel-preset-varie-app",
-  "version": "0.0.4",
+  "version": "0.1.0",
   "description": "Babel presets for a Varie application",
   "main": "index.js",
   "repository": {
@@ -13,14 +13,15 @@
   },
   "homepage": "https://varie.io/docs/latest/varie-bundler",
   "dependencies": {
-    "@babel/core": "^7.1.0",
-    "@babel/plugin-syntax-dynamic-import": "^7.0.0",
-    "@babel/plugin-syntax-jsx": "^7.0.0",
-    "@babel/plugin-transform-runtime": "^7.1.0",
-    "@babel/preset-env": "^7.1.6",
-    "@babel/runtime": "^7.1.5",
-    "babel-plugin-syntax-jsx": "^6.18.0",
-    "babel-plugin-transform-runtime": "^6.23.0",
-    "babel-plugin-transform-vue-jsx": "^3.7.0"
+    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
+    "@babel/plugin-syntax-jsx": "^7.2.0",
+    "@babel/plugin-transform-runtime": "^7.2.0",
+    "@babel/preset-env": "^7.2.3",
+    "@babel/runtime": "^7.2.0",
+    "@babel/runtime-corejs2": "^7.2.0",
+    "babel-helper-vue-jsx-merge-props": "^2.0.3",
+    "babel-plugin-dynamic-import-node": "^2.2.0",
+    "babel-plugin-transform-vue-jsx": "^3.7.0",
+    "core-js": "^2.6.1"
   }
 }

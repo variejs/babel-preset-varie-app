@@ -24,21 +24,38 @@ module.exports = (
     jsx: false
   }
 ) => {
-  const isModernBuild = options.modern || false;
 
-  let presets = [];
+	const isModernBuild = options.modern || false
+
+	// https://babeljs.io/docs/en/babel-preset-env
+	let envOptions = {
+		targets : options.targets || [],
+		spec : options.spec,
+		loose : options.loose || false,
+		modules : options.modules || false,
+		debug : options.debug || false,
+		include : options.include,
+		exclude : options.exclude || [],
+		useBuiltIns : options.useBuiltIns || 'usage',
+		forceAllTransforms : options.forceAllTransforms,
+		configPath : options.configPath,
+		ignoreBrowserslistConfig : isModernBuild,
+		shippedProposals : options.shippedProposals,
+	}
+
+	let presets = [];
   let plugins = [];
-  let targets = undefined;
 
   if (isModernBuild) {
-    targets = {
+		envOptions.targets = {
       esmodules: true
     };
   }
 
   let polyfills = [];
   if (!isModernBuild) {
-    polyfills = generatePolyFills(targets, options.polyfills);
+    polyfills = generatePolyFills(envOptions.targets, options.polyfills);
+		envOptions.exclude.concat(polyfills)
     plugins.push([require("./polyfillsPlugin"), { polyfills }]);
   }
 
@@ -50,26 +67,21 @@ module.exports = (
   }
 
   plugins.push(["@babel/plugin-syntax-dynamic-import"]);
+	// https://babeljs.io/docs/en/next/babel-plugin-transform-runtime.html
   plugins.push([
     "@babel/plugin-transform-runtime",
     {
-      corejs: false,
-      helpers: true,
-      regenerator: false,
-      useESModules: true
+			useESModules: true,
+			helpers: envOptions.useBuiltIns === 'usage',
+			regenerator: envOptions.useBuiltIns !== 'usage',
+			// "2" is the core-js version used
+			corejs: envOptions.useBuiltIns === 'usage' ? 2 : false,
     }
   ]);
 
   presets.push([
     "@babel/preset-env",
-    {
-      targets,
-      loose: false,
-      debug: false,
-      modules: false,
-      useBuiltIns: "usage",
-      ignoreBrowserslistConfig: isModernBuild
-    }
+		envOptions
   ]);
 
   return {
