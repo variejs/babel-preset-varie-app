@@ -1,6 +1,6 @@
 {
   "name": "babel-preset-varie-app",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Babel presets for a Varie application",
   "main": "index.js",
   "repository": {
@@ -24,5 +24,8 @@
     "babel-plugin-dynamic-import-node": "^2.2.0",
     "babel-plugin-transform-vue-jsx": "^3.7.0",
     "core-js": "^2.6.1"
-  }
+  },
+  "files": [
+    "polyfillsPlugin.js"
+  ]
 }
