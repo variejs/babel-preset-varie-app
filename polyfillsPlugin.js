@@ -1,28 +1,24 @@
 // https://raw.githubusercontent.com/vuejs/vue-cli/dev/packages/%40vue/babel-preset-app/polyfillsPlugin.js
 
-// add polyfill imports to the first file encountered.
-module.exports = ({ types }) => {
-  let entryFile;
+// add polyfills to app entries
+module.exports = () => {
   return {
-    name: "inject-polyfills",
+    name: "varie-app-inject-polyfills",
     visitor: {
       Program(path, state) {
-        if (!entryFile) {
-          entryFile = state.filename;
-        } else if (state.filename !== entryFile) {
+        if (!state.opts.entryFiles.includes(state.filename)) {
           return;
         }
-
         const { polyfills } = state.opts;
         const { createImport } = require("@babel/preset-env/lib/utils");
         // imports are injected in reverse order
         polyfills
           .slice()
           .reverse()
-          .forEach(polyfill => {
-            createImport(path, polyfill);
+          .forEach((p) => {
+            createImport(path, p);
           });
-      }
-    }
+      },
+    },
   };
 };

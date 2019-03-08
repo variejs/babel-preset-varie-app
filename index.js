@@ -6,15 +6,15 @@ function generatePolyFills(
     "es6.promise",
     "es6.object.assign",
     "es6.array.iterator",
-    "es7.promise.finally"
-  ]
+    "es7.promise.finally",
+  ],
 ) {
   const { isPluginRequired } = require("@babel/preset-env");
   const builtInsList = require("@babel/preset-env/data/built-ins.json");
   const getTargets = require("@babel/preset-env/lib/targets-parser").default;
   const builtInTargets = getTargets(targets);
 
-  return defaultPolyFills.filter(item => {
+  return defaultPolyFills.filter((item) => {
     return isPluginRequired(builtInTargets, builtInsList[item]);
   });
 }
@@ -22,9 +22,10 @@ function generatePolyFills(
 module.exports = (
   api,
   options = {
-    jsx: true
-  }
+    jsx: true,
+  },
 ) => {
+  const entryFiles = options.entryFiles || [];
   const isModernBuild = options.modern || false;
 
   // https://babeljs.io/docs/en/babel-preset-env
@@ -40,7 +41,7 @@ module.exports = (
     forceAllTransforms: options.forceAllTransforms,
     configPath: options.configPath,
     ignoreBrowserslistConfig: isModernBuild,
-    shippedProposals: options.shippedProposals
+    shippedProposals: options.shippedProposals,
   };
 
   let presets = [];
@@ -48,7 +49,7 @@ module.exports = (
 
   if (isModernBuild) {
     envOptions.targets = {
-      esmodules: true
+      esmodules: true,
     };
   }
 
@@ -56,13 +57,13 @@ module.exports = (
   if (!isModernBuild) {
     polyfills = generatePolyFills(envOptions.targets, options.polyfills);
     envOptions.exclude.concat(polyfills);
-    plugins.push([require("./polyfillsPlugin"), { polyfills }]);
+    plugins.push([require("./polyfillsPlugin"), { polyfills, entryFiles }]);
   }
 
   if (options.jsx) {
     presets.push([
       require("@vue/babel-preset-jsx"),
-      typeof options.jsx === "object" ? options.jsx : {}
+      typeof options.jsx === "object" ? options.jsx : {},
     ]);
   }
 
@@ -75,14 +76,14 @@ module.exports = (
       helpers: envOptions.useBuiltIns === "usage",
       regenerator: envOptions.useBuiltIns !== "usage",
       // "2" is the core-js version used
-      corejs: envOptions.useBuiltIns === "usage" && !isModernBuild ? 2 : false
-    }
+      corejs: envOptions.useBuiltIns === "usage" && !isModernBuild ? 2 : false,
+    },
   ]);
 
   presets.push(["@babel/preset-env", envOptions]);
 
   return {
     presets,
-    plugins
+    plugins,
   };
 };

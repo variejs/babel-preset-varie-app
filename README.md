@@ -3,6 +3,7 @@
 [![donate](https://img.shields.io/badge/$-donate-ff5f5f.svg?style=flat-square)](https://www.paypal.me/lukepolo)
 
 ## Introduction
+
 This package configures babel for varie applicaitons. Which can be customized to your applications needs.
 
 ## Features
@@ -26,7 +27,5 @@ Documentation can be found on the [Varie website](https://varie.io/docs/latest/v
 ## License
 
 Varie CLI is open-sourced software licensed under the [MIT](http://opensource.org/licenses/MIT)
-
-
 
 Inspired by [Vue's preset ](https://raw.githubusercontent.com/vuejs/vue-cli/dev/packages/%40vue/babel-preset-app/index.js)
