@@ -76,7 +76,7 @@ module.exports = (
       helpers: envOptions.useBuiltIns === "usage",
       regenerator: envOptions.useBuiltIns !== "usage",
       // "2" is the core-js version used
-      corejs: envOptions.useBuiltIns === "usage" && !isModernBuild ? "core-js@2" : false,
+      corejs: envOptions.useBuiltIns === "usage" && !isModernBuild ? 2 : false,
     },
   ]);
 
