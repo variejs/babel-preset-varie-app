@@ -3,10 +3,10 @@
 function generatePolyFills(
   targets,
   defaultPolyFills = [
-    "es6.promise",
-    "es6.object.assign",
-    "es6.array.iterator",
-    "es7.promise.finally",
+    "es.promise",
+    "es.object.assign",
+    "es.array.iterator",
+    "es.promise.finally",
   ],
 ) {
   const { isPluginRequired } = require("@babel/preset-env");
@@ -42,6 +42,9 @@ module.exports = (
     configPath: options.configPath,
     ignoreBrowserslistConfig: isModernBuild,
     shippedProposals: options.shippedProposals,
+    corejs : {
+      version : "core-js@3"
+    }
   };
 
   let presets = [];
@@ -76,7 +79,7 @@ module.exports = (
       helpers: envOptions.useBuiltIns === "usage",
       regenerator: envOptions.useBuiltIns !== "usage",
       // "2" is the core-js version used
-      corejs: envOptions.useBuiltIns === "usage" && !isModernBuild ? 2 : false,
+      corejs: envOptions.useBuiltIns === "usage" && !isModernBuild ? 3 : false,
     },
   ]);
 
