@@ -42,9 +42,9 @@ module.exports = (
     configPath: options.configPath,
     ignoreBrowserslistConfig: isModernBuild,
     shippedProposals: options.shippedProposals,
-    corejs : {
-      version : "core-js@3"
-    }
+    corejs: {
+      version: "core-js@3",
+    },
   };
 
   let presets = [];
@@ -78,8 +78,8 @@ module.exports = (
       useESModules: true,
       helpers: envOptions.useBuiltIns === "usage",
       regenerator: envOptions.useBuiltIns !== "usage",
-      // 3 is the core-js version used
-      corejs: envOptions.useBuiltIns === "usage" && !isModernBuild ? 3 : false,
+      // polyfills are injected by preset-env & polyfillsPlugin, so no need to add them again
+      corejs: false,
     },
   ]);
 
