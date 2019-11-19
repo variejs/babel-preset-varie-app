@@ -2,7 +2,9 @@
 
 function generatePolyFills(
   targets,
-  defaultPolyFills = [
+  isModern,
+  polyfills = [
+    "es.map",
     "es.promise",
     "es.object.assign",
     "es.array.iterator",
@@ -10,11 +12,13 @@ function generatePolyFills(
   ],
 ) {
   const { isPluginRequired } = require("@babel/preset-env");
-  const builtInsList = require("@babel/preset-env/data/built-ins.json");
+  const builtInsList = require("core-js-compat/data");
   const getTargets = require("@babel/preset-env/lib/targets-parser").default;
-  const builtInTargets = getTargets(targets);
+  const builtInTargets = getTargets(targets, {
+    ignoreBrowserslistConfig: isModern,
+  });
 
-  return defaultPolyFills.filter((item) => {
+  return polyfills.filter((item) => {
     return isPluginRequired(builtInTargets, builtInsList[item]);
   });
 }
@@ -58,7 +62,11 @@ module.exports = (
 
   let polyfills = [];
   if (!isModernBuild) {
-    polyfills = generatePolyFills(envOptions.targets, options.polyfills);
+    polyfills = generatePolyFills(
+      envOptions.targets,
+      isModernBuild,
+      options.polyfills,
+    );
     envOptions.exclude.concat(polyfills);
     plugins.push([require("./polyfillsPlugin"), { polyfills, entryFiles }]);
   }
@@ -83,10 +91,30 @@ module.exports = (
     },
   ]);
 
-  presets.push(["@babel/preset-env", envOptions]);
+  presets.unshift(["@babel/preset-env", envOptions]);
 
   return {
-    presets,
-    plugins,
+    sourceType: "unambiguous",
+    overrides: [
+      {
+        exclude: [/@babel[\/|\\\\]runtime/, /core-js/],
+        presets,
+        plugins,
+      },
+      {
+        // there are some untranspiled code in @babel/runtime
+        // https://github.com/babel/babel/issues/9903
+        include: [/@babel[\/|\\\\]runtime/],
+        presets: [
+          [
+            require("@babel/preset-env"),
+            {
+              useBuiltIns: envOptions.useBuiltIns,
+              corejs: 3,
+            },
+          ],
+        ],
+      },
+    ],
   };
 };
